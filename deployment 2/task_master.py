@@ -214,7 +214,7 @@ Your current instructions are:
 
 ## Node definitions
 
-def task_mAIstro(state: MessagesState, config: RunnableConfig, store: BaseStore):
+def task_master(state: MessagesState, config: RunnableConfig, store: BaseStore):
 
     """Load memories from the store and use them to personalize the chatbot's response."""
     
@@ -338,10 +338,10 @@ def update_todos(state: MessagesState, config: RunnableConfig, store: BaseStore)
                   r.model_dump(mode="json"),
             )
         
-    # Respond to the tool call made in task_mAIstro, confirming the update    
+    # Respond to the tool call made in task_master, confirming the update    
     tool_calls = state['messages'][-1].tool_calls
 
-    # Extract the changes made by Trustcall and add the the ToolMessage returned to task_mAIstro
+    # Extract the changes made by Trustcall and add the the ToolMessage returned to task_master
     todo_update_msg = extract_tool_info(spy.called_tools, tool_name)
     return {"messages": [{"role": "tool", "content": todo_update_msg, "tool_call_id":tool_calls[0]['id']}]}
 
@@ -390,17 +390,17 @@ def route_message(state: MessagesState, config: RunnableConfig, store: BaseStore
 builder = StateGraph(MessagesState, config_schema=configuration.Configuration)
 
 # Define the flow of the memory extraction process
-builder.add_node(task_mAIstro)
+builder.add_node(task_master)
 builder.add_node(update_todos)
 builder.add_node(update_profile)
 builder.add_node(update_instructions)
 
 # Define the flow 
-builder.add_edge(START, "task_mAIstro")
-builder.add_conditional_edges("task_mAIstro", route_message)
-builder.add_edge("update_todos", "task_mAIstro")
-builder.add_edge("update_profile", "task_mAIstro")
-builder.add_edge("update_instructions", "task_mAIstro")
+builder.add_edge(START, "task_master")
+builder.add_conditional_edges("task_master", route_message)
+builder.add_edge("update_todos", "task_master")
+builder.add_edge("update_profile", "task_master")
+builder.add_edge("update_instructions", "task_master")
 
 # Compile the graph
 graph = builder.compile()

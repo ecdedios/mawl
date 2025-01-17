@@ -8,7 +8,7 @@ services:
       test: redis-cli ping
       interval: 5s
       timeout: 1s
-      retries: 5
+      retries: 3
   langgraph-postgres:
     image: postgres:16
     ports:
@@ -23,10 +23,10 @@ services:
       test: pg_isready -U postgres
       start_period: 10s
       timeout: 1s
-      retries: 5
+      retries: 3
       interval: 5s
   langgraph-api:
-    image: "my-first-image"
+    image: "mawl-image"
     ports:
       - "8123:8000"
     depends_on:
