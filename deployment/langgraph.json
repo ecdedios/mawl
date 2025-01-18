@@ -1,7 +1,7 @@
 {
     "dockerfile_lines": [],
     "graphs": {
-      "task_maistro": "./task_master.py:graph"
+      "task_master": "./task_master.py:graph"
     },
     "python_version": "3.12",
     "dependencies": [
