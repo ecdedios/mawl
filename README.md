@@ -15,7 +15,7 @@ To see the project in action, open the notebooks.
 
 ## References
 
-[LangChain Academy Website](https://academy.langchain.com/)
+[LangChain Academy Website](https://academy.langchain.com/)  
 [LangChain Academy Repository](https://github.com/langchain-ai/langchain-academy)
 
 ## Meta
